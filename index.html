@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Harry Potter Houses</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>Hogwarts Sorting Houses from Harry Potter</h1>
+        <p>Use the interactive charts below to explore the dataset</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="well">
+          <h5>Hogwarts House to Explore:</h5>
+          <select id="selDataset">
+            <option value="Hogwarts - Gryffindor">Gryffindor</option>
+            <option value="Hogwarts - Slytherin">Slytherin</option>
+            <option value="Hogwarts - Hufflepuff">Hufflepuff</option>
+            <option value="Hogwarts - Ravenclaw">Ravenclaw</option>
+          </select>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">House Statistics</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div id="maleVsFemale"></div>
+      </div>
+      <div class="col-md-5">
+        <div id="professions"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bloodStatus"></div>
+      </div>
+      <div>
+        <table id="people_count" class = "table table-striped table-bordered table-hover"> First 10 People on List
+          <thead>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Profession</th>
+          </thead>
+          <tbody id="people_count_body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="./static/js/app.js"></script>
+
+</body>
+
+</html>
