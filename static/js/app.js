@@ -14,6 +14,7 @@ d3.json(url).then(function(data) {
     }
     //Display Array
     console.log(gryffindor);
+    
 
     //Intialize plots
     function init() {
@@ -28,28 +29,35 @@ d3.json(url).then(function(data) {
         };
 
         //Data for question 1 male vs female (Below is sample of needed values for bubble)
-        let data1 = [{
-            x: data.samples[0].otu_ids,
-            y: data.samples[0].sample_values,
-            mode: 'markers',
-            marker: {
-                color: data.samples[0].otu_ids,
-                size: data.samples[0].sample_values
-            },
-            hovertemplate: '<i>OTU ID</i>: %{x}<br>' +
-                        '<b>Value</b>: %{y}<br>' +
-                        '<b>%{text}</b>',
-            text: data.samples[0].otu_labels,
-            type: 'scatter'
-        }];
+        let male = gryffindor.filter(d => d.Gender == "Male");
+        let female = gryffindor.filter(d => d.Gender == "Female");
+
+        let trace1 = {
+        x: ["Male", "Female"],
+        y: [male.length, female.length],
+        type: "bar",
+        name: "Gryffindor",
+        marker: {
+            color: "red"
+        }
+        };
+
         
         //Format the graph
-        let layout1 ={
-            width: 700
-        }
+        let layout = {
+            title: "Gender Distribution in Gryffindor",
+            xaxis: {
+              title: "Gender"
+            },
+            yaxis: {
+              title: "Number of Students"
+            },
+            showlegend: true
+          };
+          
         
         //Plot Question 1 Graph
-        Plotly.newPlot("maleVsFemale", data1, layout1);
+        Plotly.newPlot("maleVsFemale", [trace1], layout);
 
         //Data for question 2 popular professions (Below is a sample of needed values for a horizontal bar chart)
         let data2 = [{
