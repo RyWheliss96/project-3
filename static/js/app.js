@@ -92,8 +92,18 @@ d3.json(url).then(function(data) {
         // Use D3 to select the dropdown menu
         let dropdownMenu = d3.select("#selDataset");
         // Assign the value of the dropdown menu option to a variable
-        let dataset = dropdownMenu.property("value");        
-    
+        let value = dropdownMenu.property("value");        
+        
+        //blank array for containing house data
+        let house_data = [];
+
+        //assign correct users
+        for(let i = 0; i < data.length; i++){
+            if(data[i].School == value){
+                house_data.push(data[i]);
+            }
+        }
+
         // restyle horizontal bar
         Plotly.restyle("bar", "x", [sample_values]);
         Plotly.restyle("bar", "y", [otu_ids]);
