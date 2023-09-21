@@ -1,4 +1,4 @@
-const url = "/data/HPCharactersDataRaw.json";
+const url = "/templates/data/HPCharactersDataRaw.json";
 
 d3.json(url).then(function(data) {
     console.log(data);
