@@ -20,6 +20,7 @@ d3.json(url).then(function(data) {
 
     //Intialize plots
     function init() {
+       
 
         //Table Creation
         for(let i = 0;i < 10; i++){
@@ -121,6 +122,68 @@ d3.json(url).then(function(data) {
        
        Plotly.newPlot('bloodStatus', data, bubbleLayout);
 
+        // graph for question 3 
+ 
+        let muggle = [];
+        let muggleborn = [];
+        let halfblood = [];
+        let pureblood = [];
+        let unknown = [];
+        let other = [];
+     
+        for (let i = 0;i < gryffindor.length; i++){
+
+
+            if (gryffindor[i].Blood === "Muggle"){
+              muggle.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Muggle-born"){
+             muggleborn.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Half-blood"){
+                halfblood.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Pure blood"){
+                pureblood.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Unknown"){
+                unknown.push(gryffindor[i].Blood);
+            }
+            else {
+                other.push(gryffindor[i].Blood);
+            }
+    }
+    var statusBubble = {
+        x: [1, 2, 3, 4, 5, 6],
+        y: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
+        text: ['Muggles', 'Muggle-borns', 'Half-bloods', 'Pure bloods', 'Unknown', 'Other'], 
+        mode: 'markers',
+        marker: {
+          size: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length], 
+          color: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
+          sizeref: 0.37
+        }
+      };
+      
+      var data = [statusBubble];
+      
+      var bubbleLayout = {
+        title: 'Blood Status',
+        showlegend: false,
+        height: 600,
+        width: 600, 
+        xaxis: {
+            tickmode: Array,
+            tickvals: [1, 2, 3, 4, 5, 6], 
+            ticktext: ['Muggles', 'Muggleborns', 'Half-Bloods', 'Pure-bloods', 'Unknowns', 'Others'], 
+            tickangle: -45
+        },
+        yaxis: {title: "Number of Students"}
+      };
+      
+      Plotly.newPlot('bloodStatus', data, bubbleLayout);
+  
+
     };
 
     d3.selectAll("#selDataset").on("change", updatePlotly);
@@ -158,4 +221,3 @@ d3.json(url).then(function(data) {
     init();
 
 });
-
