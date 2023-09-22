@@ -14,9 +14,11 @@ d3.json(url).then(function(data) {
     }
     //Display Array
     console.log(gryffindor);
+    
 
     //Intialize plots
     function init() {
+       
 
         //Table Creation
         for(let i = 0;i < 10; i++){
@@ -28,28 +30,35 @@ d3.json(url).then(function(data) {
         };
 
         //Data for question 1 male vs female (Below is sample of needed values for bubble)
-        let data1 = [{
-            x: data.samples[0].otu_ids,
-            y: data.samples[0].sample_values,
-            mode: 'markers',
-            marker: {
-                color: data.samples[0].otu_ids,
-                size: data.samples[0].sample_values
-            },
-            hovertemplate: '<i>OTU ID</i>: %{x}<br>' +
-                        '<b>Value</b>: %{y}<br>' +
-                        '<b>%{text}</b>',
-            text: data.samples[0].otu_labels,
-            type: 'scatter'
-        }];
+        let male = gryffindor.filter(d => d.Gender == "Male");
+        let female = gryffindor.filter(d => d.Gender == "Female");
+
+        let trace1 = {
+        x: ["Male", "Female"],
+        y: [male.length, female.length],
+        type: "bar",
+        name: "Gryffindor",
+        marker: {
+            color: "red"
+        }
+        };
+
         
         //Format the graph
-        let layout1 ={
-            width: 700
-        }
+        let layout = {
+            title: "Gender Distribution in Gryffindor",
+            xaxis: {
+              title: "Gender"
+            },
+            yaxis: {
+              title: "Number of Students"
+            },
+            showlegend: true
+          };
+          
         
         //Plot Question 1 Graph
-        Plotly.newPlot("maleVsFemale", data1, layout1);
+        Plotly.newPlot("maleVsFemale", [trace1], layout);
 
         //Data for question 2 popular professions (Below is a sample of needed values for a horizontal bar chart)
         let data2 = [{
@@ -75,6 +84,68 @@ d3.json(url).then(function(data) {
         //Plot Professions Graph
         Plotly.newPlot("professions", data2, layout2);
 
+        // graph for question 3 
+ 
+        let muggle = [];
+        let muggleborn = [];
+        let halfblood = [];
+        let pureblood = [];
+        let unknown = [];
+        let other = [];
+     
+        for (let i = 0;i < gryffindor.length; i++){
+
+
+            if (gryffindor[i].Blood === "Muggle"){
+              muggle.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Muggle-born"){
+             muggleborn.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Half-blood"){
+                halfblood.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Pure blood"){
+                pureblood.push(gryffindor[i].Blood);
+            }
+            else if (gryffindor[i].Blood === "Unknown"){
+                unknown.push(gryffindor[i].Blood);
+            }
+            else {
+                other.push(gryffindor[i].Blood);
+            }
+    }
+    var statusBubble = {
+        x: [1, 2, 3, 4, 5, 6],
+        y: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
+        text: ['Muggles', 'Muggle-borns', 'Half-bloods', 'Pure bloods', 'Unknown', 'Other'], 
+        mode: 'markers',
+        marker: {
+          size: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length], 
+          color: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
+          sizeref: 0.37
+        }
+      };
+      
+      var data = [statusBubble];
+      
+      var bubbleLayout = {
+        title: 'Blood Status',
+        showlegend: false,
+        height: 600,
+        width: 600, 
+        xaxis: {
+            tickmode: Array,
+            tickvals: [1, 2, 3, 4, 5, 6], 
+            ticktext: ['Muggles', 'Muggleborns', 'Half-Bloods', 'Pure-bloods', 'Unknowns', 'Others'], 
+            tickangle: -45
+        },
+        yaxis: {title: "Number of Students"}
+      };
+      
+      Plotly.newPlot('bloodStatus', data, bubbleLayout);
+  
+
     };
 
     d3.selectAll("#selDataset").on("change", updatePlotly);
@@ -84,8 +155,18 @@ d3.json(url).then(function(data) {
         // Use D3 to select the dropdown menu
         let dropdownMenu = d3.select("#selDataset");
         // Assign the value of the dropdown menu option to a variable
-        let dataset = dropdownMenu.property("value");        
-    
+        let value = dropdownMenu.property("value");        
+        
+        //blank array for containing house data
+        let house_data = [];
+
+        //assign correct users
+        for(let i = 0; i < data.length; i++){
+            if(data[i].School == value){
+                house_data.push(data[i]);
+            }
+        }
+
         // restyle horizontal bar
         Plotly.restyle("bar", "x", [sample_values]);
         Plotly.restyle("bar", "y", [otu_ids]);
@@ -102,4 +183,3 @@ d3.json(url).then(function(data) {
     init();
 
 });
-
