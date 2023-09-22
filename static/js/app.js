@@ -53,19 +53,14 @@ d3.json(url).then(function(data) {
 
         //Data for question 2 popular professions (Below is a sample of needed values for a horizontal bar chart)
         let data2 = [{
-            //x-values
-            x: sample_values,
-            //y-values
-            y: otu_ids,
-            //what data you want displayed and the format when hovering over bars in the graph
+            
+            x: count_of_professional,
+            y: professional,
             hovertemplate: '<b>OTU ID</b>: %{y}<br>' +
                         '<b>Value</b>: %{x}<br>' +
-                        '<b>%{text}</b>',
-            //Text to display on hover over            
+                        '<b>%{text}</b>',           
             text: otu_labels,
-            //Type of graph
             type: "bar",
-            //makes it horizontal
             orientation:"h"
         }];
         //Format the graph
