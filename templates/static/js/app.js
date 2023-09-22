@@ -59,29 +59,65 @@ d3.json(url).then(function(data) {
         //Plot Question 1 Graph
         Plotly.newPlot("maleVsFemale", [trace1], layout);
 
-        //Data for question 2 popular professions (Below is a sample of needed values for a horizontal bar chart)
-        let data2 = [{
-            //x-values
-            x: sample_values,
-            //y-values
-            y: otu_ids,
-            //what data you want displayed and the format when hovering over bars in the graph
-            hovertemplate: '<b>OTU ID</b>: %{y}<br>' +
-                        '<b>Value</b>: %{x}<br>' +
-                        '<b>%{text}</b>',
-            //Text to display on hover over            
-            text: otu_labels,
-            //Type of graph
-            type: "bar",
-            //makes it horizontal
-            orientation:"h"
-        }];
-        //Format the graph
-        let layout2 ={
-            width: 700
+
+         // graph for question 3 
+ 
+        let muggle = [];
+        let muggleborn = [];
+        let halfblood = [];
+        let pureblood = [];
+        let unknown = [];
+        let other = [];
+      
+        for (let i = 0;i < gryffindor.length; i++){
+            if (gryffindor[i].Blood === "Muggle"){
+               muggle.push(gryffindor[i].Blood);
+             }
+             else if (gryffindor[i].Blood === "Muggle-born"){
+              muggleborn.push(gryffindor[i].Blood);
+             }
+             else if (gryffindor[i].Blood === "Half-blood"){
+                 halfblood.push(gryffindor[i].Blood);
+             }
+             else if (gryffindor[i].Blood === "Pure blood"){
+                 pureblood.push(gryffindor[i].Blood);
+             }
+             else if (gryffindor[i].Blood === "Unknown"){
+                 unknown.push(gryffindor[i].Blood);
+             }
+             else {
+                 other.push(gryffindor[i].Blood);
+             }
         }
-        //Plot Professions Graph
-        Plotly.newPlot("professions", data2, layout2);
+        var statusBubble = {
+            x: [1, 2, 3, 4, 5, 6],
+            y: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
+            text: ['Muggles', 'Muggle-borns', 'Half-bloods', 'Pure bloods', 'Unknown', 'Other'], 
+            mode: 'markers',
+            marker: {
+                size: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length], 
+                color: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
+                sizeref: 0.37
+            }
+       };
+       
+       var data = [statusBubble];
+       
+       var bubbleLayout = {
+         title: 'Blood Status',
+         showlegend: false,
+         height: 600,
+         width: 600, 
+         xaxis: {
+             tickmode: Array,
+             tickvals: [1, 2, 3, 4, 5, 6], 
+             ticktext: ['Muggles', 'Muggleborns', 'Half-Bloods', 'Pure-bloods', 'Unknowns', 'Others'], 
+             tickangle: -45
+         },
+         yaxis: {title: "Number of Students"}
+       };
+       
+       Plotly.newPlot('bloodStatus', data, bubbleLayout);
 
     };
 
