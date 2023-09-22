@@ -2,6 +2,8 @@ import numpy as np
 
 from pymongo import MongoClient
 
+from flask_cors import CORS, cross_origin
+
 from flask import Flask, jsonify, render_template
 
 
@@ -18,6 +20,7 @@ collection = db.characters
 #################################################
 app = Flask(__name__)
 
+CORS(app)
 
 #################################################
 # Flask Routes
