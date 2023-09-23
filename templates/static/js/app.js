@@ -26,9 +26,9 @@ d3.json(url).then(function(data) {
         for(let i = 0;i < 10; i++){
             let row = d3.select("#people_count_body").append('tr');
             row.attr('class', 'row_'+ String(i));
-            row.append('th').text(gryffindor[i].Name);
-            row.append('th').text(gryffindor[i].Gender);
-            row.append('th').text(gryffindor[i].Profession);
+            row.append('th').text(gryffindor[i].Name).attr('class','row_'+ String(i)+'_name');
+            row.append('th').text(gryffindor[i].Gender).attr('class','row_'+ String(i)+'_gender');
+            row.append('th').text(gryffindor[i].Profession).attr('class','row_'+ String(i)+'_profession');
         };
 
         //Data for question 1 male vs female (Below is sample of needed values for bubble)
@@ -121,67 +121,6 @@ d3.json(url).then(function(data) {
        };
        
        Plotly.newPlot('bloodStatus', data, bubbleLayout);
-
-        // graph for question 3 
- 
-        let muggle = [];
-        let muggleborn = [];
-        let halfblood = [];
-        let pureblood = [];
-        let unknown = [];
-        let other = [];
-     
-        for (let i = 0;i < gryffindor.length; i++){
-
-
-            if (gryffindor[i].Blood === "Muggle"){
-              muggle.push(gryffindor[i].Blood);
-            }
-            else if (gryffindor[i].Blood === "Muggle-born"){
-             muggleborn.push(gryffindor[i].Blood);
-            }
-            else if (gryffindor[i].Blood === "Half-blood"){
-                halfblood.push(gryffindor[i].Blood);
-            }
-            else if (gryffindor[i].Blood === "Pure blood"){
-                pureblood.push(gryffindor[i].Blood);
-            }
-            else if (gryffindor[i].Blood === "Unknown"){
-                unknown.push(gryffindor[i].Blood);
-            }
-            else {
-                other.push(gryffindor[i].Blood);
-            }
-    }
-    var statusBubble = {
-        x: [1, 2, 3, 4, 5, 6],
-        y: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
-        text: ['Muggles', 'Muggle-borns', 'Half-bloods', 'Pure bloods', 'Unknown', 'Other'], 
-        mode: 'markers',
-        marker: {
-          size: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length], 
-          color: [muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length],
-          sizeref: 0.37
-        }
-      };
-      
-      var data = [statusBubble];
-      
-      var bubbleLayout = {
-        title: 'Blood Status',
-        showlegend: false,
-        height: 600,
-        width: 600, 
-        xaxis: {
-            tickmode: Array,
-            tickvals: [1, 2, 3, 4, 5, 6], 
-            ticktext: ['Muggles', 'Muggleborns', 'Half-Bloods', 'Pure-bloods', 'Unknowns', 'Others'], 
-            tickangle: -45
-        },
-        yaxis: {title: "Number of Students"}
-      };
-      
-      Plotly.newPlot('bloodStatus', data, bubbleLayout);
   
 
     };
@@ -204,18 +143,25 @@ d3.json(url).then(function(data) {
                 house_data.push(data[i]);
             }
         }
+        console.log(house_data);
+
+        for(let i=0;i < 10;i++){
+            d3.select('.row_'+ String(i)+'_name').text(house_data[i].Name);
+            d3.select('.row_'+ String(i)+'_gender').text(house_data[i].Gender);
+            d3.select('.row_'+ String(i)+'_profession').text(house_data[i].Profession);
+        };
 
         // restyle horizontal bar
-        Plotly.restyle("bar", "x", [sample_values]);
-        Plotly.restyle("bar", "y", [otu_ids]);
-        Plotly.restyle("bar", "text", [otu_labels]);
+        //  Plotly.restyle("bar", "x", [sample_values]);
+        // Plotly.restyle("bar", "y", [otu_ids]);
+        // Plotly.restyle("bar", "text", [otu_labels]);
 
         //restyle bubble graph
-        Plotly.restyle("bubble", "x", [data.samples[name_value].otu_ids]);
-        Plotly.restyle("bubble", "y", [data.samples[name_value].sample_values]);
-        Plotly.restyle("bubble", "marker.size", [data.samples[name_value].sample_values]);
-        Plotly.restyle("bubble", "marker.color", [data.samples[name_value].otu_ids]);
-        Plotly.restyle("bubble", "text", [data.samples[name_value].otu_labels]);
+        // Plotly.restyle("bubble", "x", [data.samples[name_value].otu_ids]);
+        // Plotly.restyle("bubble", "y", [data.samples[name_value].sample_values]);
+        // Plotly.restyle("bubble", "marker.size", [data.samples[name_value].sample_values]);
+        // Plotly.restyle("bubble", "marker.color", [data.samples[name_value].otu_ids]);
+        // Plotly.restyle("bubble", "text", [data.samples[name_value].otu_labels]);
     }
     
     init();
