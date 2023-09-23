@@ -53,7 +53,8 @@ d3.json(url).then(function(data) {
               title: "Gender"
             },
             yaxis: {
-              title: "Number of Students"
+              title: "Number of Students",
+              range: [0,60]
             },
             showlegend: true
           };
