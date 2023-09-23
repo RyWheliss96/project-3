@@ -143,13 +143,56 @@ d3.json(url).then(function(data) {
                 house_data.push(data[i]);
             }
         }
-        console.log(house_data);
 
         for(let i=0;i < 10;i++){
             d3.select('.row_'+ String(i)+'_name').text(house_data[i].Name);
             d3.select('.row_'+ String(i)+'_gender').text(house_data[i].Gender);
             d3.select('.row_'+ String(i)+'_profession').text(house_data[i].Profession);
         };
+
+        let male = house_data.filter(d => d.Gender == "Male");
+        let female = house_data.filter(d => d.Gender == "Female");
+
+        var updates = {
+            "Hogwarts - Gryffindor": {
+                "y": [[male.length, female.length]],
+                "name": "Gryffindor",
+                "marker.color": "red",
+                "id.value": "Gryffindor",
+                title: "Gender Distribution in Gryffindor"
+
+            } ,
+            "Hogwarts - Slytherin": {
+                "y": [[male.length, female.length]],
+                "name": "Slytherin",
+                "marker.color": "green",
+                "id.value": "Slytherin",
+                title: "Gender Distribution in Slytherin"
+
+            } ,
+            "Hogwarts - Hufflepuff": {
+                "y": [[male.length, female.length]],
+                "name": "Hufflepuff",
+                "marker.color": "gold",
+                "id.value": "Hufflepuff",
+                title: "Gender Distribution in Hufflepuff"
+
+            } ,
+            "Hogwarts - Ravenclaw": {
+                "y": [[male.length, female.length]],
+                "name": "Ravenclaw",
+                "marker.color": "blue",
+                "id.value": "Ravenclaw",
+                title: "Gender Distribution in Ravenclaw"
+
+            }
+
+
+        }
+        
+        let plot = document.getElementById("maleVsFemale");
+        
+        Plotly.restyle(plot, updates[value], 0);
 
         // restyle horizontal bar
         //  Plotly.restyle("bar", "x", [sample_values]);
