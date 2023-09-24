@@ -1,12 +1,12 @@
-const url = "/templates/data/HPCharactersDataRaw.json";
+//const url = "/templates/data/HPCharactersDataRaw.json";
 
-//const url = "http://127.0.0.1:5000/jsonify/";
+const url = "http://127.0.0.1:5000/jsonify/";
 
 d3.json(url).then(function(data) {
     console.log(data);
 
     //Initialize Gryffindor Students List
-    let gryffindor = [data[0]];
+    let gryffindor = [];
     
     //Add Students to the empty list wwho are listed as in Gryffindor
     for(let i = 0; i < data.length; i++){
@@ -31,18 +31,18 @@ d3.json(url).then(function(data) {
             row.append('th').text(gryffindor[i].Profession).attr('class','row_'+ String(i)+'_profession');
         };
 
-        //Data for question 1 male vs female (Below is sample of needed values for bubble)
+        //Data for question 1 male vs female 
         let male = gryffindor.filter(d => d.Gender == "Male");
         let female = gryffindor.filter(d => d.Gender == "Female");
 
         let trace1 = {
-        x: ["Male", "Female"],
-        y: [male.length, female.length],
-        type: "bar",
-        name: "Gryffindor",
-        marker: {
-            color: "red"
-        }
+            x: ["Male", "Female"],
+            y: [male.length, female.length],
+            type: "bar",
+            name: "Gryffindor",
+            marker: {
+                color: "red"
+            }
         };
 
         
@@ -54,7 +54,7 @@ d3.json(url).then(function(data) {
             },
             yaxis: {
               title: "Number of Students",
-              range: [0,60]
+              range: [0,40]
             },
             showlegend: true
           };
@@ -196,7 +196,7 @@ d3.json(url).then(function(data) {
         Plotly.restyle(plot, updates[value], 0);
 
         // restyle horizontal bar
-        //  Plotly.restyle("bar", "x", [sample_values]);
+        // Plotly.restyle("bar", "x", [sample_values]);
         // Plotly.restyle("bar", "y", [otu_ids]);
         // Plotly.restyle("bar", "text", [otu_labels]);
 
