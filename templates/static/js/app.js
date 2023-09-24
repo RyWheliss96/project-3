@@ -63,16 +63,64 @@ d3.json(url).then(function(data) {
         //Plot Question 1 Graph
         Plotly.newPlot("maleVsFemale", [trace1], layout);
 
+        // Question 2 Data Setup
+        let prof_dict = {};
+        let prof_name_list = [];
 
-         // graph for question 3 
- 
+        for(let i = 0; i<gryffindor.length; i++){
+            if(gryffindor[i].Profession in prof_dict){
+                prof_dict[gryffindor[i].Profession]=prof_dict[gryffindor[i].Profession]+1;
+            }
+            else{
+                prof_dict[gryffindor[i].Profession] = 1;
+                prof_name_list.push(gryffindor[i].Profession);
+            }
+        }
+
+        let prof_value_list = [];
+
+        for(let i = 0; i<prof_name_list.length;i++){
+            let value = prof_dict[prof_name_list[i]];
+
+            prof_value_list.push(value);
+        }
+        
+        //Question 2 Data Input
+        let data2 = [{
+            x: prof_value_list,
+            y: prof_name_list,
+            hovertemplate: '<b>Profession</b>: %{y}<br>' +
+                          '<b>Value</b>: %{x}<br>',
+            type: "bar",
+            orientation:"h",
+            name: "Gryffindor",
+            marker: {
+                color: "red"
+            }
+          }];
+          
+        //Width and height
+        let layout2 ={
+            title: "Profession Distribution in Gryffindor",
+            yaxis: {
+                title: "Profession"
+            },
+            xaxis: {
+                title: "Number of Students"
+            }
+        }
+          
+        //Plot Horizontal Bar Graph
+        Plotly.newPlot("professions", data2, layout2);
+
+        // Question 3 Data Setup 
         let muggle = [];
         let muggleborn = [];
         let halfblood = [];
         let pureblood = [];
         let unknown = [];
         let other = [];
-      
+        
         for (let i = 0;i < gryffindor.length; i++){
             if (gryffindor[i].Blood === "Muggle"){
                muggle.push(gryffindor[i].Blood);
@@ -145,12 +193,14 @@ d3.json(url).then(function(data) {
             }
         }
 
+        //update Table
         for(let i=0;i < 10;i++){
             d3.select('.row_'+ String(i)+'_name').text(house_data[i].Name);
             d3.select('.row_'+ String(i)+'_gender').text(house_data[i].Gender);
             d3.select('.row_'+ String(i)+'_profession').text(house_data[i].Profession);
         };
 
+        //Question 1 Setup
         let male = house_data.filter(d => d.Gender == "Male");
         let female = house_data.filter(d => d.Gender == "Female");
 
@@ -195,6 +245,74 @@ d3.json(url).then(function(data) {
         
         Plotly.restyle(plot, updates[value], 0);
 
+        //Question 2 Data Setup
+        let prof_dict = {};
+        let prof_name_list = [];
+
+        for(let i = 0; i<house_data.length; i++){
+            if(house_data[i].Profession in prof_dict){
+                prof_dict[house_data[i].Profession]=prof_dict[house_data[i].Profession]+1;
+            }
+            else{
+                prof_dict[house_data[i].Profession] = 1;
+                prof_name_list.push(house_data[i].Profession);
+            }
+        };
+
+        let prof_value_list = [];
+
+        for(let i = 0; i<prof_name_list.length;i++){
+            let value = prof_dict[prof_name_list[i]];
+
+            prof_value_list.push(value);
+        };
+        
+
+
+        //Question 2 Plotly Data Updates Formatting
+        let updates2 = {
+            "Hogwarts - Gryffindor": {
+                "x": [prof_value_list],
+                "y": [prof_name_list],
+                "name": "Gryffindor",
+                "marker.color": "red",
+                "id.value": "Gryffindor",
+                title: "Profession Distribution in Gryffindor"
+
+            } ,
+            "Hogwarts - Slytherin": {
+                "x": [prof_value_list],
+                "y": [prof_name_list],
+                "name": "Slytherin",
+                "marker.color": "green",
+                "id.value": "Slytherin",
+                title: "Profession Distribution in Slytherin"
+
+            } ,
+            "Hogwarts - Hufflepuff": {
+                "x": [prof_value_list],
+                "y": [prof_name_list],
+                "name": "Hufflepuff",
+                "marker.color": "gold",
+                "id.value": "Hufflepuff",
+                title: "Profession Distribution in Hufflepuff"
+
+            } ,
+            "Hogwarts - Ravenclaw": {
+                "x": [prof_value_list],
+                "y": [prof_name_list],
+                "name": "Ravenclaw",
+                "marker.color": "blue",
+                "id.value": "Ravenclaw",
+                title: "Profession Distribution in Ravenclaw"
+
+            }
+
+
+        }
+        let plot2 = document.getElementById("professions");
+        
+        Plotly.restyle(plot2, updates2[value], 0);
         // restyle horizontal bar
         // Plotly.restyle("bar", "x", [sample_values]);
         // Plotly.restyle("bar", "y", [otu_ids]);
