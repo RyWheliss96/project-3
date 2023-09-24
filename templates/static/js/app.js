@@ -324,6 +324,66 @@ d3.json(url).then(function(data) {
         // Plotly.restyle("bubble", "marker.size", [data.samples[name_value].sample_values]);
         // Plotly.restyle("bubble", "marker.color", [data.samples[name_value].otu_ids]);
         // Plotly.restyle("bubble", "text", [data.samples[name_value].otu_labels]);
+
+        let muggle = [];
+        let muggleborn = [];
+        let halfblood = [];
+        let pureblood = [];
+        let unknown = [];
+        let other = [];
+
+        for (let i = 0;i < house_data.length; i++){
+            if (house_data[i].Blood === "Muggle"){
+               muggle.push(house_data[i].Blood);
+             }
+             else if (house_data[i].Blood === "Muggle-born"){
+              muggleborn.push(house_data[i].Blood);
+             }
+             else if (house_data[i].Blood === "Half-blood"){
+                 halfblood.push(house_data[i].Blood);
+             }
+             else if (house_data[i].Blood === "Pure blood"){
+                 pureblood.push(house_data[i].Blood);
+             }
+             else if (house_data[i].Blood === "Unknown"){
+                 unknown.push(house_data[i].Blood);
+             }
+             else {
+                 other.push(house_data[i].Blood);
+             }
+        }
+
+        var updateBubble = {
+            "Hogwarts - Hufflepuff": { 
+                "y": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "id.value": "Hufflepuff",
+                "marker.size": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "marker.color": "yellow",
+             }, 
+            "Hogwarts - Gryffindor": { 
+                "y": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "id.value": "Gryffindor",
+                "marker.size": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "marker.color": "red",
+             },
+             "Hogwarts - Slytherin": { 
+                "y": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "id.value": "Slytherin",
+                "marker.size": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "marker.color": "green",
+
+             },
+             "Hogwarts - Ravenclaw": { 
+                "y": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "id.value": "Ravenclaw",
+                "marker.size": [[muggle.length, muggleborn.length, halfblood.length, pureblood.length, unknown.length, other.length]],
+                "marker.color": "blue",
+             },
+
+       };
+
+        let bubbleTwo = document.getElementById("bloodStatus")
+        Plotly.restyle(bubbleTwo, updateBubble[value], 0);
     }
     
     init();
