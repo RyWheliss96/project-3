@@ -105,10 +105,15 @@ d3.json(url).then(function(data) {
         let layout2 ={
             title: "Profession Distribution in Gryffindor",
             yaxis: {
-                title: "Profession"
+                automargin: true,
+                title:{
+                    text: "Profession"
+                } 
             },
             xaxis: {
-                title: "Number of Students"
+                title:{
+                    text: "Number of Students"
+                } 
             },
             paper_bgcolor: "#EDEADE",
             plot_bgcolor:"#EDEADE"
