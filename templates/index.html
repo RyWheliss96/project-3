@@ -30,19 +30,20 @@
           </select>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5 mvf">
         <div id="maleVsFemale"></div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5 bs">
         <div id="bloodStatus"></div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <div id="professions"></div>
+      <div class="col-md-12 prof">
+        <div id="professions" style = "background-color:#EDEADE;"></div>
       </div>
       <div>
-        <table id="people_count" class = "table table-striped table-bordered table-hover"> First 10 People on List
+        <h3 style = "color:white;">First 10 People In The House:</h3>
+        <table style = "background-color:#EDEADE;" id="people_count" class = "table table-dark table-bordered table-hover"> 
           <thead>
             <th>Name</th>
             <th>Gender</th>
@@ -57,7 +58,19 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src= "./static/js/app.js"></script>
-  
+  <script src="https://unpkg.com/scrollreveal@4"></script>
+  <script>
+    ScrollReveal().reveal('.jumbotron', { delay: 100 });
+		ScrollReveal().reveal('.well', { delay: 400 });
+    ScrollReveal().reveal('.mvf', { delay: 800 });
+    ScrollReveal().reveal('.bs', { delay: 1200 });
+    ScrollReveal().reveal('.prof', { delay: 1600 });
+	</script>
+  <style>
+    body {
+      background-image: url("harry-potter-animal-outlines.jpeg");
+    }
+  </style>
 
 </body>
 
