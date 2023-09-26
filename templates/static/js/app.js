@@ -56,7 +56,9 @@ d3.json(url).then(function(data) {
               title: "Number of Students",
               range: [0,40]
             },
-            showlegend: true
+            showlegend: true,
+            paper_bgcolor: "#EDEADE",
+            plot_bgcolor:"#EDEADE"
           };
           
         
@@ -107,7 +109,9 @@ d3.json(url).then(function(data) {
             },
             xaxis: {
                 title: "Number of Students"
-            }
+            },
+            paper_bgcolor: "#EDEADE",
+            plot_bgcolor:"#EDEADE"
         }
           
         //Plot Horizontal Bar Graph
@@ -166,7 +170,9 @@ d3.json(url).then(function(data) {
              ticktext: ['Muggles', 'Muggleborns', 'Half-Bloods', 'Pure-bloods', 'Unknowns', 'Others'], 
              tickangle: -45
          },
-         yaxis: {title: "Number of Students"}
+         yaxis: {title: "Number of Students"},
+         paper_bgcolor: "#EDEADE",
+         plot_bgcolor:"#EDEADE"
        };
        
        Plotly.newPlot('bloodStatus', data, bubbleLayout);
@@ -206,44 +212,49 @@ d3.json(url).then(function(data) {
 
         var updates = {
             "Hogwarts - Gryffindor": {
+                "title.text": "Gender Distribution in Gryffindor"
+            } ,
+            "Hogwarts - Slytherin": {
+                "title.text": "Gender Distribution in Slytherin"
+            } ,
+            "Hogwarts - Hufflepuff": {
+                "title.text": "Gender Distribution in Hufflepuff"
+            } ,
+            "Hogwarts - Ravenclaw": {
+                "title.text": "Gender Distribution in Ravenclaw"
+            }
+        }
+        var restyles = {
+            "Hogwarts - Gryffindor": {
                 "y": [[male.length, female.length]],
                 "name": "Gryffindor",
                 "marker.color": "red",
                 "id.value": "Gryffindor",
-                title: "Gender Distribution in Gryffindor"
-
             } ,
             "Hogwarts - Slytherin": {
                 "y": [[male.length, female.length]],
                 "name": "Slytherin",
                 "marker.color": "green",
                 "id.value": "Slytherin",
-                title: "Gender Distribution in Slytherin"
-
             } ,
             "Hogwarts - Hufflepuff": {
                 "y": [[male.length, female.length]],
                 "name": "Hufflepuff",
                 "marker.color": "gold",
                 "id.value": "Hufflepuff",
-                title: "Gender Distribution in Hufflepuff"
-
             } ,
             "Hogwarts - Ravenclaw": {
                 "y": [[male.length, female.length]],
                 "name": "Ravenclaw",
                 "marker.color": "blue",
                 "id.value": "Ravenclaw",
-                title: "Gender Distribution in Ravenclaw"
-
             }
-
-
         }
         
         let plot = document.getElementById("maleVsFemale");
         
-        Plotly.restyle(plot, updates[value], 0);
+        Plotly.restyle(plot, restyles[value], 0);
+        Plotly.relayout(plot, updates[value], 0);
 
         //Question 2 Data Setup
         let prof_dict = {};
@@ -277,8 +288,6 @@ d3.json(url).then(function(data) {
                 "name": "Gryffindor",
                 "marker.color": "red",
                 "id.value": "Gryffindor",
-                title: "Profession Distribution in Gryffindor"
-
             } ,
             "Hogwarts - Slytherin": {
                 "x": [prof_value_list],
@@ -286,8 +295,6 @@ d3.json(url).then(function(data) {
                 "name": "Slytherin",
                 "marker.color": "green",
                 "id.value": "Slytherin",
-                title: "Profession Distribution in Slytherin"
-
             } ,
             "Hogwarts - Hufflepuff": {
                 "x": [prof_value_list],
@@ -295,8 +302,6 @@ d3.json(url).then(function(data) {
                 "name": "Hufflepuff",
                 "marker.color": "gold",
                 "id.value": "Hufflepuff",
-                title: "Profession Distribution in Hufflepuff"
-
             } ,
             "Hogwarts - Ravenclaw": {
                 "x": [prof_value_list],
@@ -304,8 +309,6 @@ d3.json(url).then(function(data) {
                 "name": "Ravenclaw",
                 "marker.color": "blue",
                 "id.value": "Ravenclaw",
-                title: "Profession Distribution in Ravenclaw"
-
             }
 
 
@@ -313,6 +316,7 @@ d3.json(url).then(function(data) {
         let plot2 = document.getElementById("professions");
         
         Plotly.restyle(plot2, updates2[value], 0);
+        Plotly.relayout(plot2, updates[value], 0);
         // restyle horizontal bar
         // Plotly.restyle("bar", "x", [sample_values]);
         // Plotly.restyle("bar", "y", [otu_ids]);
