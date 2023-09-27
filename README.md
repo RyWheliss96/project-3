@@ -12,7 +12,9 @@
 ## Project_Description
 Our group is attempting to look at the differences between the houses at Hogwarts. Using the data of all of the known characters in the movies, we will be investigating the similarities and differences. We will then create a visualization dashboard to help display the data.<br />
 
-![houses](templates/Images/harry-potter-animal-outlines.jpeg) 
+![houses](templates/Images/harry-potter-animal-outlines.jpeg)
+
+We then created a PowerPoint to help present what was found. That can be found here: https://docs.google.com/presentation/d/1_9F5unn04Ntu5zw7uiUeS6xLyVfiSmdIajbLp7erzJI/edit?usp=sharing .<br /> 
 
 ## Questions
 1. What are the percentages of female vs male in each house?
