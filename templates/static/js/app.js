@@ -318,10 +318,24 @@ d3.json(url).then(function(data) {
 
 
         }
+        var update2 = {
+            "Hogwarts - Gryffindor": {
+                "title.text": "Profession Distribution in  Gryffindor"
+            } ,
+            "Hogwarts - Slytherin": {
+                "title.text": "Profession Distribution in  Slytherin"
+            } ,
+            "Hogwarts - Hufflepuff": {
+                "title.text": "Profession Distribution in  Hufflepuff"
+            } ,
+            "Hogwarts - Ravenclaw": {
+                "title.text": "Profession Distribution in Ravenclaw"
+            }
+        }
         let plot2 = document.getElementById("professions");
         
         Plotly.restyle(plot2, updates2[value], 0);
-        Plotly.relayout(plot2, updates[value], 0);
+        Plotly.relayout(plot2, update2[value], 0);
         // restyle horizontal bar
         // Plotly.restyle("bar", "x", [sample_values]);
         // Plotly.restyle("bar", "y", [otu_ids]);
